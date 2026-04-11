@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPath - Your Future Starts Here</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                CareerPath
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#streams">Streams</a></li>
+                <li><a href="#careers">Careers</a></li>
+                <li><a href="#helper">Career Helper</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="login.php" class="admin-link">Admin Login</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Discover Your <span class="highlight">Perfect Career</span></h1>
+            <p class="hero-subtitle">
+                Confused about your future? We help students explore career options, 
+                understand their strengths, and make informed decisions for a successful future.
+            </p>
+            <div class="hero-buttons">
+                <a href="#streams" class="btn btn-primary">Explore Careers</a>
+                <a href="#helper" class="btn btn-secondary">Find Your Path</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600" alt="Students studying together">
+        </div>
+    </section>
+
+    <!-- Why Career Guidance Section -->
+    <section class="why-guidance">
+        <div class="container">
+            <h2 class="section-title">Why Students Need Career Guidance</h2>
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>Confusion</h3>
+                    <p>Too many options make it hard to decide. Students often feel overwhelmed by the number of career paths available.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Family Pressure</h3>
+                    <p>Expectations from parents and society can push students toward careers that may not suit their interests.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Fear of Failure</h3>
+                    <p>The fear of making wrong choices prevents students from exploring new and exciting opportunities.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-eye-slash"></i>
+                    <h3>Lack of Awareness</h3>
+                    <p>Many students are unaware of emerging careers and modern opportunities beyond traditional paths.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions">
+        <div class="container">
+            <h2 class="section-title">Our Solutions For You</h2>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Follow Your Interest</h3>
+                    <p>We help you identify what you truly love and match it with suitable career options.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Avoid Peer Pressure</h3>
+                    <p>Learn to make independent decisions based on your strengths, not others expectations.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon"><i class="fas fa-compass"></i></div>
+                    <h3>Expert Guidance</h3>
+                    <p>Get comprehensive information about various careers to make informed choices.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Future Planning</h3>
+                    <p>Understand the complete roadmap from education to career success.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stream Selection Section -->
+    <section id="streams" class="streams">
+        <div class="container">
+            <h2 class="section-title">Choose Your Stream</h2>
+            <p class="section-subtitle">Select a stream after 10th to explore career opportunities</p>
+            <div class="stream-buttons">
+                <button class="stream-btn active" data-stream="science">
+                    <i class="fas fa-flask"></i>
+                    Science
+                </button>
+                <button class="stream-btn" data-stream="commerce">
+                    <i class="fas fa-chart-bar"></i>
+                    Commerce
+                </button>
+                <button class="stream-btn" data-stream="arts">
+                    <i class="fas fa-palette"></i>
+                    Arts
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Display Section -->
+    <section id="careers" class="careers">
+        <div class="container">
+            <h2 class="section-title">Career Options</h2>
+            <div id="career-grid" class="career-grid">
+                <!-- Careers will be loaded dynamically via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Modal -->
+    <div id="career-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-body">
+                <!-- Career details loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Decision Helper Section -->
+    <section id="helper" class="career-helper">
+        <div class="container">
+            <h2 class="section-title">Find Your Ideal Career</h2>
+            <p class="section-subtitle">Answer a few questions and we will suggest the best career for you!</p>
+            
+            <form id="career-form" class="career-form">
+                <div class="form-group">
+                    <label for="student-name">Your Name *</label>
+                    <input type="text" id="student-name" name="name" required placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="student-email">Email (Optional)</label>
+                    <input type="email" id="student-email" name="email" placeholder="Enter your email">
+                </div>
+
+                <div class="form-group">
+                    <label>Select Your Stream *</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="stream" value="Science" required>
+                            <span class="radio-custom"></span>
+                            Science
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="stream" value="Commerce">
+                            <span class="radio-custom"></span>
+                            Commerce
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="stream" value="Arts">
+                            <span class="radio-custom"></span>
+                            Arts
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>What interests you most? *</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="interest" value="Coding">
+                            <span class="checkbox-custom"></span>
+                            Coding & Technology
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="interest" value="Helping People">
+                            <span class="checkbox-custom"></span>
+                            Helping People
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="interest" value="Business">
+                            <span class="checkbox-custom"></span>
+                            Business & Finance
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="interest" value="Creative Arts">
+                            <span class="checkbox-custom"></span>
+                            Creative Arts & Design
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="interest" value="Research">
+                            <span class="checkbox-custom"></span>
+                            Research & Analysis
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="interest" value="Communication">
+                            <span class="checkbox-custom"></span>
+                            Communication & Media
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">
+                    <i class="fas fa-magic"></i> Get Career Suggestion
+                </button>
+            </form>
+
+            <!-- Result Display -->
+            <div id="career-result" class="career-result hidden">
+                <h3>Your Suggested Career</h3>
+                <div id="result-content"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Roadmap Section -->
+    <section id="roadmap" class="roadmap">
+        <div class="container">
+            <h2 class="section-title">Your Career Roadmap</h2>
+            <p class="section-subtitle">Follow this path to achieve your career goals</p>
+            
+            <div class="roadmap-timeline">
+                <div class="roadmap-item">
+                    <div class="roadmap-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <div class="roadmap-content">
+                        <h3>Class 10th</h3>
+                        <p>Complete your secondary education with good grades. Focus on understanding your interests and strengths.</p>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <div class="roadmap-content">
+                        <h3>Choose Your Stream</h3>
+                        <p>Select Science, Commerce, or Arts based on your interests and career goals. This is a crucial decision!</p>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="roadmap-content">
+                        <h3>Class 12th</h3>
+                        <p>Excel in your chosen stream. Prepare for competitive exams if needed for your desired career.</p>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="roadmap-content">
+                        <h3>Higher Education</h3>
+                        <p>Pursue relevant degree/diploma programs. Consider professional courses for specialized careers.</p>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="roadmap-content">
+                        <h3>Career Launch</h3>
+                        <p>Start your professional journey! Apply skills learned and continue growing in your chosen field.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confidence/Motivation Section -->
+    <section class="motivation">
+        <div class="container">
+            <div class="motivation-content">
+                <h2>Believe In Yourself</h2>
+                <p class="motivation-quote">
+                    "Your career is not just about earning money. It is about finding purpose, 
+                    following your passion, and making a difference in the world."
+                </p>
+                <div class="motivation-tips">
+                    <div class="tip">
+                        <i class="fas fa-star"></i>
+                        <span>Every successful person started exactly where you are now</span>
+                    </div>
+                    <div class="tip">
+                        <i class="fas fa-star"></i>
+                        <span>Its okay to change your path - growth comes from exploration</span>
+                    </div>
+                    <div class="tip">
+                        <i class="fas fa-star"></i>
+                        <span>Your unique skills and interests are your greatest assets</span>
+                    </div>
+                </div>
+                <a href="#helper" class="btn btn-primary">Start Your Journey Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3><i class="fas fa-graduation-cap"></i> CareerPath</h3>
+                    <p>Helping students find their perfect career path since 2024.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#streams">Streams</a></li>
+                        <li><a href="#helper">Career Helper</a></li>
+                        <li><a href="login.php">Admin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-envelope"></i> info@careerpath.com</p>
+                    <p><i class="fas fa-phone"></i> +91 1234567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CareerPath. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

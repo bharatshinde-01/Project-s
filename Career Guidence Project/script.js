@@ -8,7 +8,7 @@ const careerData = {
     science: [
         {
             name: "Software Engineer",
-            image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400",
+            image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400", 
             shortDesc: "Build applications and software systems that power the digital world.",
             description: "Software Engineers design, develop, and maintain software applications. They work on everything from mobile apps to enterprise systems.",
             study: "B.Tech/B.E. in Computer Science, BCA, or MCA",

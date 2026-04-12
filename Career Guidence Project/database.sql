@@ -4,7 +4,7 @@
 -- Create Database
 CREATE DATABASE IF NOT EXISTS career_guidance;
 USE career_guidance;
-
+ 
 -- Create Students Table
 -- Stores student career exploration data
 CREATE TABLE IF NOT EXISTS students (

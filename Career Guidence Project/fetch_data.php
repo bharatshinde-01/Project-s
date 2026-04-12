@@ -5,8 +5,8 @@
  */
 
 // Start session to check admin access
-session_start();
-
+session_start(); 
+ 
 // Set headers for JSON response
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");

@@ -11,7 +11,7 @@ session_start();
 require_once 'db.php';
 
 // Check if form was submitted via POST
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST')  {
     header("Location: login.php");
     exit();
 }

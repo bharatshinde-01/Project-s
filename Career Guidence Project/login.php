@@ -6,7 +6,7 @@
                         <i class="fas fa-exclamation-circle"></i>
                         ' . htmlspecialchars($_SESSION['login_error']) . '
                       </div>';
-                unset($_SESSION['login_error']);
+                 unset($_SESSION['login_error']);
             }
             ?>
 

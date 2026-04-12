@@ -4,9 +4,9 @@
  * Displays all student records
  * Protected - requires admin login
  */
-
+ 
 // Start session
-session_start();
+session_start(); 
 
 // Check if admin is logged in
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {

@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Suppliers · Smart Shop{% endblock %}
+{% block content %}
+<div class="mb-4"><p class="eyebrow mb-1">CONTACTS</p><h2 class="page-title">Suppliers</h2><p class="text-secondary mb-0">Keep supplier details linked to your products.</p></div>
+<div class="row g-4"><div class="col-12 col-lg-4"><div class="panel"><div class="panel-head"><h5>Add supplier</h5></div><form method="post" class="p-3">
+<label class="form-label">Supplier name *</label><input class="form-control mb-3" name="name" required>
+<label class="form-label">Phone</label><input class="form-control mb-3" name="phone">
+<label class="form-label">Email</label><input class="form-control mb-3" type="email" name="email">
+<label class="form-label">Address</label><textarea class="form-control mb-3" name="address" rows="2"></textarea>
+<button class="btn btn-primary w-100">＋ Add supplier</button></form></div></div>
+<div class="col-12 col-lg-8"><div class="panel"><div class="panel-head"><h5>Supplier directory</h5></div><div class="table-responsive"><table class="table align-middle"><thead><tr><th>Name</th><th>Phone / Email</th><th>Address</th><th>Products</th><th></th></tr></thead><tbody>
+{% for s in suppliers %}<tr><td class="fw-semibold">{{ s.name }}</td><td>{{ s.phone or '—' }}<br><small class="text-secondary">{{ s.email or '' }}</small></td><td>{{ s.address or '—' }}</td><td>{{ s.product_count }}</td><td><form method="post" action="{{ url_for('delete_supplier',supplier_id=s.id) }}" onsubmit="return confirm('Delete this supplier?')"><button class="btn btn-sm btn-outline-danger">Delete</button></form></td></tr>{% else %}<tr><td colspan="5" class="text-center text-secondary py-4">No suppliers added yet.</td></tr>{% endfor %}
+</tbody></table></div></div></div></div>
+{% endblock %}

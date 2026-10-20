@@ -1,0 +1,30 @@
+{% extends "base.html" %}{% block title %}Dashboard · Smart Shop{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+ <div><p class="eyebrow mb-1">OVERVIEW</p><h2 class="page-title">Dashboard</h2><p class="text-secondary mb-0">Here's how your shop is doing today.</p></div>
+ <a class="btn btn-primary" href="{{ url_for('billing') }}">＋ Create new bill</a>
+</div>
+<div class="row g-3 mb-4">
+ {% for label,value,sub,icon in [
+ ('Products',stats.product_count,'Products listed','📦'),
+ ('Stock units',stats.stock_units,'Units currently in stock','🧮'),
+ ("Today's revenue",stats.revenue_today|money,'Revenue from today','₹'),
+ ("Today's bills",stats.sales_today,'Invoices created today','🧾'),
+ ("Low-stock items",stats.low_stock,'At or below minimum stock','⚠️'),
+ ("Today's estimated profit",stats.profit_today|money,'Before shop expenses','📈')] %}
+ <div class="col-12 col-sm-6 col-xl-4"><div class="stat-card h-100"><div class="stat-icon">{{ icon }}</div><div class="stat-label">{{ label }}</div><div class="stat-value">{{ value }}</div><div class="stat-sub">{{ sub }}</div></div></div>
+ {% endfor %}
+</div>
+<div class="row g-4">
+ <div class="col-12 col-xl-7"><div class="panel h-100"><div class="panel-head"><h5>⚠️ Low stock</h5><a href="{{ url_for('products') }}">Manage products →</a></div>
+ {% if low_products %}<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Product</th><th>SKU</th><th>Stock</th><th>Minimum</th></tr></thead><tbody>
+ {% for p in low_products %}<tr><td class="fw-semibold">{{ p.name }}</td><td>{{ p.sku or '—' }}</td><td><span class="badge text-bg-danger">{{ p.quantity }}</span></td><td>{{ p.min_quantity }}</td></tr>{% endfor %}
+ </tbody></table></div>{% else %}<div class="empty-state">All stocked up! No low-stock alerts. 🎉</div>{% endif %}
+ </div></div>
+ <div class="col-12 col-xl-5"><div class="panel h-100"><div class="panel-head"><h5>Recent sales</h5><a href="{{ url_for('sales') }}">View all →</a></div>
+ {% if recent_sales %}<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Invoice</th><th>Date</th><th>Total</th></tr></thead><tbody>
+ {% for s in recent_sales %}<tr><td><a href="{{ url_for('invoice',sale_id=s.id) }}">{{ s.invoice_no }}</a></td><td>{{ s.created_at.strftime('%d %b') if s.created_at else '' }}</td><td class="fw-semibold">{{ s.total|money }}</td></tr>{% endfor %}
+ </tbody></table></div>{% else %}<div class="empty-state">No sales yet. Create your first bill to get started.</div>{% endif %}
+ </div></div>
+</div>
+{% endblock %}

@@ -1,9 +1,0 @@
-{% extends "base.html" %}{% block title %}Sales History · Smart Shop{% endblock %}
-{% block content %}
-<div class="mb-4"><p class="eyebrow mb-1">TRANSACTIONS</p><h2 class="page-title">Sales history</h2><p class="text-secondary mb-0">Review invoices and filter by date.</p></div>
-<div class="row g-3 mb-4"><div class="col-md-6"><div class="stat-card"><div class="stat-label">Matching invoices</div><div class="stat-value">{{ summary.count }}</div></div></div><div class="col-md-6"><div class="stat-card"><div class="stat-label">Matching revenue</div><div class="stat-value">{{ summary.revenue|money }}</div></div></div></div>
-<div class="panel"><form class="p-3 d-flex flex-wrap align-items-end gap-3"><div><label class="form-label">From date</label><input class="form-control" type="date" name="start" value="{{ start }}"></div><div><label class="form-label">To date</label><input class="form-control" type="date" name="end" value="{{ end }}"></div><button class="btn btn-primary">Apply filter</button><a class="btn btn-light" href="{{ url_for('sales') }}">Reset</a></form>
-<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Invoice</th><th>Customer</th><th>Date / time</th><th>Payment</th><th>Discount</th><th>Total</th><th></th></tr></thead><tbody>
-{% for s in sales %}<tr><td class="fw-semibold">{{ s.invoice_no }}</td><td>{{ s.customer_name }}</td><td>{{ s.created_at.strftime('%d %b %Y, %I:%M %p') if s.created_at else '' }}</td><td>{{ s.payment_method }}</td><td>{{ s.discount|money }}</td><td class="fw-semibold">{{ s.total|money }}</td><td><a class="btn btn-sm btn-outline-primary" href="{{ url_for('invoice',sale_id=s.id) }}">Invoice</a></td></tr>{% else %}<tr><td colspan="7" class="text-center text-secondary py-4">No sales match this filter.</td></tr>{% endfor %}
-</tbody></table></div></div>
-{% endblock %}

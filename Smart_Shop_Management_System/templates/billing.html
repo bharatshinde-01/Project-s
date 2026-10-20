@@ -1,0 +1,53 @@
+{% extends "base.html" %}{% block title %}New Bill · Smart Shop{% endblock %}
+{% block content %}
+<div class="mb-4"><p class="eyebrow mb-1">CHECKOUT</p><h2 class="page-title">Create a bill</h2><p class="text-secondary mb-0">Stock updates only after a successful sale.</p></div>
+{% if not products %}<div class="alert alert-warning">No products are in stock. <a href="{{ url_for('products') }}">Add products first.</a></div>{% else %}
+<form method="post" id="billForm">
+<div class="row g-4"><div class="col-12 col-xl-8"><div class="panel"><div class="panel-head"><h5>Items</h5><button type="button" class="btn btn-sm btn-outline-primary" id="addRow">＋ Add item</button></div>
+<div class="p-3" id="items">
+<div class="row g-2 item-row mb-3"><div class="col-7"><label class="form-label">Product</label><select class="form-select product-select" name="product_id[]" required><option value="">Select product</option>{% for p in products %}<option value="{{ p.id }}" data-price="{{ p.selling_price }}" data-stock="{{ p.quantity }}">{{ p.name }} ({{ p.quantity }} left) — {{ p.selling_price|money }}</option>{% endfor %}</select></div><div class="col-3"><label class="form-label">Qty</label><input class="form-control qty" name="quantity[]" type="number" min="1" value="1" required></div><div class="col-2"><label class="form-label">Amount</label><div class="line-total pt-2 fw-semibold">₹0.00</div><button type="button" class="btn btn-sm btn-link text-danger remove-row">Remove</button></div></div>
+</div></div></div>
+<div class="col-12 col-xl-4"><div class="panel p-3"><h5 class="mb-3">Bill details</h5><label class="form-label">Customer name</label><input class="form-control mb-3" name="customer_name" placeholder="Walk-in Customer">
+<label class="form-label">Payment method</label><select class="form-select mb-3" name="payment_method"><option>Cash</option><option>UPI</option><option>Card</option></select>
+<label class="form-label">Discount (₹)</label><input class="form-control mb-3" name="discount" id="discount" type="number" min="0" step=".01" value="0">
+<div class="bill-total"><div class="d-flex justify-content-between mb-2"><span>Subtotal</span><b id="subtotal">₹0.00</b></div><div class="d-flex justify-content-between mb-3"><span>Discount</span><b id="discountDisplay">₹0.00</b></div><hr><div class="d-flex justify-content-between fs-5"><span>Total</span><b id="grandTotal">₹0.00</b></div></div>
+<button class="btn btn-primary btn-lg w-100 mt-4">Complete sale</button><p class="text-secondary small mt-3 mb-0">Please verify quantities before saving. This action creates a permanent sale record.</p>
+</div></div></div></form>{% endif %}
+{% endblock %}
+{% block scripts %}
+<script>
+(function(){
+ const items=document.getElementById('items'); if(!items) return;
+ const rowTemplate=items.querySelector('.item-row').cloneNode(true);
+ function money(n){return '₹'+Number(n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+ function update(){
+  let subtotal=0;
+  items.querySelectorAll('.item-row').forEach(row=>{
+   const sel=row.querySelector('.product-select'), qty=row.querySelector('.qty'), opt=sel.options[sel.selectedIndex];
+   const price=Number(opt?.dataset.price||0), stock=Number(opt?.dataset.stock||0);
+   qty.max=stock || 1;
+   const amount=sel.value ? price*Math.max(0,Number(qty.value||0)):0;
+   row.querySelector('.line-total').textContent=money(amount); subtotal+=amount;
+  });
+  const discount=Math.max(0,Number(document.getElementById('discount').value||0));
+  document.getElementById('subtotal').textContent=money(subtotal);
+  document.getElementById('discountDisplay').textContent=money(discount);
+  document.getElementById('grandTotal').textContent=money(Math.max(0,subtotal-discount));
+ }
+ items.addEventListener('change',update); items.addEventListener('input',update);
+ items.addEventListener('click',e=>{if(e.target.classList.contains('remove-row')){const rows=items.querySelectorAll('.item-row');if(rows.length>1)e.target.closest('.item-row').remove();update();}});
+ document.getElementById('discount').addEventListener('input',update);
+ document.getElementById('addRow').addEventListener('click',()=>{
+  const row=rowTemplate.cloneNode(true);row.querySelector('.product-select').value='';row.querySelector('.qty').value=1;
+  items.appendChild(row);update();
+ });
+ document.getElementById('billForm').addEventListener('submit',e=>{
+  for(const row of items.querySelectorAll('.item-row')){
+   const sel=row.querySelector('.product-select'), qty=row.querySelector('.qty'), stock=Number(sel.options[sel.selectedIndex]?.dataset.stock||0);
+   if(!sel.value || Number(qty.value)<1 || Number(qty.value)>stock){e.preventDefault();alert('Select a product and enter a quantity within available stock.');return;}
+  }
+ });
+ update();
+})();
+</script>
+{% endblock %}
